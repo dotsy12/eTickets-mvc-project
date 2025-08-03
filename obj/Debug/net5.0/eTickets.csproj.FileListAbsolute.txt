@@ -74,3 +74,4 @@ D:\cSharp\eTickets\obj\Debug\net5.0\refint\eTickets.dll
 D:\cSharp\eTickets\obj\Debug\net5.0\eTickets.pdb
 D:\cSharp\eTickets\obj\Debug\net5.0\eTickets.genruntimeconfig.cache
 D:\cSharp\eTickets\obj\Debug\net5.0\ref\eTickets.dll
+D:\cSharp\eTickets\obj\Debug\net5.0\eTickets.sourcelink.json
