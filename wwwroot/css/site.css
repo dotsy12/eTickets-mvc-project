@@ -69,3 +69,38 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+*, *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --brand-color: #fe4141;
+    --dark-color: #1e1b26;
+    --accent-color: #e7e7e7;
+    --text-light: #b4b4b4;
+    --text-lighter: #d7d7d7;
+    --section-space: 16px;
+    --card-padding: 24px;
+    --poster-overlay: rgba(30, 27, 38, 0.8);
+}
+
+body {
+    background: linear-gradient( rgba(30, 27, 38, 0.95), rgba(30, 27, 38, 0.95) ), url("https://assets.codepen.io/406785/pulp2.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: repeat;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--accent-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+}

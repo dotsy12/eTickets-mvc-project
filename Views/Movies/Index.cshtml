@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Movie>
+
+@{
+    ViewData["Title"] = "List of Movies";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
+
+<h2 class="text-center mb-4">List of Movies</h2>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        var status = "";
+        var badgeClass = "";
+
+        if (DateTime.Now >= item.StartDate && DateTime.Now <= item.EndDate)
+        {
+            status = "AVAILABLE";
+            badgeClass = "success";
+        }
+        else if (DateTime.Now > item.EndDate)
+        {
+            status = "EXPIRED";
+            badgeClass = "danger";
+        }
+        else
+        {
+            status = "UPCOMING";
+            badgeClass = "primary";
+        }
+
+        <div class="col-md-4 col-xs-6 mb-4 d-flex">
+            <div class="card shadow-sm w-100 d-flex flex-column" style="height: 100%;">
+                <div class="row g-0 flex-grow-1">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">@item.Name</h5>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+                                <a class="text-white" asp-action="Edit" asp-route-id="@item.Id">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <img src="@item.ImgUrl" width="100%" height="100%" style="object-fit: cover; height: 100%;" alt="@item.Name" />
+                    </div>
+
+                    <div class="col-md-6 d-flex">
+                        <div class="card-body p-2 d-flex flex-column justify-content-between w-100">
+                            <div>
+                                <p class="card-text text-truncate" title="@item.Description">@item.Description</p>
+                                <p class="card-text mb-1"><strong>Cinema:</strong> @item.Cinema?.Name</p>
+                                <p class="card-text mb-1"><strong>Category:</strong> @item.MovieCategory</p>
+                                <p class="card-text mb-1"><strong>Start Date:</strong> @item.StartDate.ToString("dd MMM yy")</p>
+                                <p class="card-text mb-1"><strong>End Date:</strong> @item.EndDate.ToString("dd MMM yy")</p>
+                            </div>
+                            <p class="card-text mb-0 mt-2">
+                                <strong>Status:</strong> <span class="badge bg-@badgeClass text-white">@status</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="card-footer d-flex justify-content-between">
+                            <a class="btn btn-outline-primary btn-sm" asp-action="Details" asp-route-id="@item.Id">
+                                <i class="bi bi-eye-fill"></i> Show Details
+                            </a>
+                            <a class="btn btn-success btn-sm text-white @((DateTime.Now > item.EndDate) ? "disabled" : "")"
+                               asp-controller="Orders"
+                               asp-action="AddItemToShoppingCart"
+                               asp-route-id="@item.Id">
+                                <i class="bi bi-cart-plus"></i> @item.Price.ToString("c")
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

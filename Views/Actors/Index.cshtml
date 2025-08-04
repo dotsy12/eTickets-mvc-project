@@ -1,0 +1,50 @@
+﻿@model IEnumerable<eTickets.Models.Actor>
+
+@{
+    ViewData["Title"] = "Actors";
+}
+
+<div class="container py-4">
+    <h2 class="text-center mb-4">🎭 All Actors</h2>
+
+    <div class="text-end mb-3">
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle"></i> Add New Actor
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            No actors found.
+        </div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+            @foreach (var actor in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm border-0">
+                        <img src="@actor.ProfilePictureURL" alt="@actor.FullName" class="card-img-top" style="height: 300px; object-fit: cover; border-top-left-radius: 12px; border-top-right-radius: 12px;" />
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-center">@actor.FullName</h5>
+                            <p class="card-text text-muted small text-center">@actor.Bio</p>
+                            <div class="mt-auto d-flex justify-content-around">
+                                <a asp-action="Edit" asp-route-id="@actor.Id" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-id="@actor.Id" class="btn btn-info btn-sm text-white">
+                                    <i class="bi bi-info-circle"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@actor.Id" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
